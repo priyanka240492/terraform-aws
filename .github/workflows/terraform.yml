@@ -28,6 +28,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
+    - name: Test AWS CLI with access key
+      run: aws s3 ls
+
     - name: Terraform Init
       run: terraform init
 
