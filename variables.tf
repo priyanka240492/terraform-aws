@@ -1,5 +1,5 @@
 variable "bucket_name" {
-  description = "raw_bukcet_klp"
+  description = "raw_bucket_klp"
   type        = string
 }
 
