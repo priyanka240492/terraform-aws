@@ -33,13 +33,13 @@ jobs:
       with:
         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    # - name: Configure AWS Credentials
-    #   uses: aws-actions/configure-aws-credentials@v2
-    #   with:
-    #     # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #     # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #     role-to-assume: arn:aws:iam::026579986315:role/githubA-cicd-terraform-assume-role  # Configure AWS Credentials via OpenID Connect(OIDC) assume role
-    #     aws-region: us-east-1
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        role-to-assume: arn:aws:iam::026579986315:role/githubA-assume-role # Configure AWS Credentials via OpenID Connect(OIDC) assume role
+        aws-region: us-east-1
 
     # - name: Validate AWS CLI access by listing all AWS s3 buckets
     #   run: aws s3 ls
