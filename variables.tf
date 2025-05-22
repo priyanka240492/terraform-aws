@@ -1,5 +1,6 @@
 variable "bucket_name" {
-  description = "raw_bucket_klp"
+  bucket = "sample-bucket-by-cicd"
+  description = "This bucket is created by Github Actions"
   type        = string
 }
 
