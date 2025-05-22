@@ -38,7 +38,7 @@ jobs:
       with:
         # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        role-to-assume: arn:aws:iam::026579986315:role/github-terraform-assume-role  # Configure AWS Credentials via OpenID Connect(OIDC) assume role
+        role-to-assume: arn:aws:iam::026579986315:role/githubA-cicd-terraform-assume-role  # Configure AWS Credentials via OpenID Connect(OIDC) assume role
         aws-region: us-east-1
 
     - name: Validate AWS CLI access by listing all AWS s3 buckets
