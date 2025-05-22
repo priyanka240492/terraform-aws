@@ -41,8 +41,8 @@ jobs:
         role-to-assume: arn:aws:iam::026579986315:role/githubA-assume-role # Configure AWS Credentials via OpenID Connect(OIDC) assume role
         aws-region: us-east-1
 
-    # - name: Validate AWS CLI access by listing all AWS s3 buckets
-    #   run: aws s3 ls
+    - name: Validate AWS CLI access by listing all AWS s3 buckets
+      run: aws s3 ls
       
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
