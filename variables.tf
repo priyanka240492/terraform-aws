@@ -1,7 +1,7 @@
 variable "bucket_name" {
-  bucket = "sample-bucket-by-cicd"
   description = "This bucket is created by Github Actions"
   type        = string
+  default = "sample-bucket-by-cicd"
 }
 
 variable "environment" {
