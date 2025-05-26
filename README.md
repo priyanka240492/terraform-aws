@@ -22,15 +22,32 @@ This project uses GitHub Actions to run Terraform code from a GitHub-hosted virt
       - Provider URL: https://token.actions.githubusercontent.com
       - Audience: sts.amazonaws.com.
         
-<Reference : https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services?versionId=free-pro-team%40latest&productId=apps#adding-the-identity-provider-to-aws>
+Reference : https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services?versionId=free-pro-team%40latest&productId=apps#adding-the-identity-provider-to-aws
 
 2. Create an IAM Role for GitHub Actions and attach a trust policy.
 3. Attach IAM policies to this role to allow S3 access for state file.
+4. Update this role arn in role-to-assume attribute while configuring AWS credentials in .yaml file.
 
 ## How to configure Terraform backend as AWS S3 instead of Terraform Cloud
 Instead of using Terraform Cloud (remote), store Terraform state in an AWS S3 bucket. To do this, update Terraform backend block in main.tf
 
+## (Optional) Terraform Cloud setup (Using **remote** Backend)
 
+1. Provide Terraform Organization and Workspace name in remote backend.
+2. Required to setup Terraform Workspace Environment Variables when using Terraform Cloud.
+   
+| Variable                | Purpose                                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------------------- |
+| `TF_API_TOKEN`          | **Required**. Token to authenticate with Terraform Cloud. Usually a **user token**, not team/org token. |
+| `AWS_ACCESS_KEY_ID`     | Required if not using OIDC. Used for authenticating with AWS.                                           |
+| `AWS_SECRET_ACCESS_KEY` | Same as above.                                                                                          |
+| `AWS_REGION`            | Region used for AWS resources.                                                                          |
+| `TF_WORKSPACE`          | Optional if you're dynamically choosing workspaces in GitHub Actions.                                   |
+
+Generate TF_API_TOKEN from your Terraform Cloud User Settings → Tokens.
+
+**For OIDC setup, refer https://developer.hashicorp.com/terraform/cloud-docs/workspaces/dynamic-provider-credentials/aws-configuration#configure-aws**
+ 
 ## (Optional) GitHub Secrets Setup
 
 To allow GitHub Actions to authenticate with AWS, you need to configure GitHub Secrets with your AWS credentials:
