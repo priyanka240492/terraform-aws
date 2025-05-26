@@ -1,5 +1,6 @@
 # terraform-aws-s3-bucket:
-To provision an AWS S3 bucket using Terraform, integrated with GitHub Actions for CI/CD automation.
+
+This project uses GitHub Actions to run Terraform code from a GitHub-hosted virtual machine (VM), authenticating to AWS via OIDC and storing Terraform state in an AWS S3 bucket instead of Terraform Cloud.
 
 ```
 ├── main.tf
@@ -13,7 +14,24 @@ To provision an AWS S3 bucket using Terraform, integrated with GitHub Actions fo
 
 ---
 
-## GitHub Secrets Setup
+## How to configure an OIDC role in AWS for GitHub Actions
+1. Create an OIDC Provider in AWS:
+    - Go to IAM > Identity Providers > Add provider
+    - Choose:
+      - Provider type: OpenID Connect
+      - Provider URL: https://token.actions.githubusercontent.com
+      - Audience: sts.amazonaws.com.
+        
+<Reference : https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/configuring-openid-connect-in-amazon-web-services?versionId=free-pro-team%40latest&productId=apps#adding-the-identity-provider-to-aws>
+
+2. Create an IAM Role for GitHub Actions and attach a trust policy.
+3. Attach IAM policies to this role to allow S3 access for state file.
+
+## How to configure Terraform backend as AWS S3 instead of Terraform Cloud
+Instead of using Terraform Cloud (remote), store Terraform state in an AWS S3 bucket. To do this, update Terraform backend block in main.tf
+
+
+## (Optional) GitHub Secrets Setup
 
 To allow GitHub Actions to authenticate with AWS, you need to configure GitHub Secrets with your AWS credentials:
 
@@ -42,6 +60,8 @@ To validate, you can add a quick step in your GitHub Action to test AWS CLI conn
   run: aws s3 ls
 ```
 ---
+
+
 
 ## Workflow Explanation
 The GitHub Actions workflow performs the following Terraform commands in sequence:
