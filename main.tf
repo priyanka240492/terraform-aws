@@ -6,12 +6,12 @@ terraform {
     }
   }
 
-  backend "remote" {
-    organization = "priyanka_kaduluri"
-    workspaces {
-      name = "tfe-ws-deploy-aws-s3"
-    }
+  backend "s3" {
+    bucket         = "gh-cicd-tf-state-bucket"
+    key            = "terraform/state.tfstate"
+    region         = "us-east-1"
   }
+  
 }
 
 resource "aws_s3_bucket" "raw_bucket" {
